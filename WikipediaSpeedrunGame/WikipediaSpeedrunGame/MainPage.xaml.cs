@@ -14,5 +14,9 @@ namespace WikipediaSpeedrunGame
         {
             InitializeComponent();
         }
+        private async void OnStartGameClicked(object sender, System.EventArgs e)
+        {
+            await Navigation.PushModalAsync(new GamePage());
+        }
     }
 }
