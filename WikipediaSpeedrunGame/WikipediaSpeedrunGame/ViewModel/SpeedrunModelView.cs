@@ -9,73 +9,70 @@ namespace WikipediaSpeedrunGame.ViewModel
 {
     class SpeedrunModelView : INotifyPropertyChanged
     {
-        private SpeedrunData _data;
+        private SpeedrunInfo _data;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public SpeedrunModelView()
         {
-            _data = new SpeedrunData();
+            _data = new SpeedrunInfo();
         }
 
-        public string StartPage
+        public string StartPageUrl
         {
-            get { return _data.StartPage; }
+            get { return _data.StartPageUrl; }
             set
             {
-                if (_data.StartPage != value)
+                if (_data.StartPageUrl != value)
                 {
-                    _data.StartPage = value;
-                    OnPropertyChanged("StartPage");
+                    _data.StartPageUrl = value;
+                    OnPropertyChanged("StartPageUrl");
                 }
             }
         }
 
-        public string CurrentPage
+        public string StartPageTitle
         {
-            get { return _data.CurrentPage; }
+            get { return _data.StartPageTitle; }
             set
             {
-                if (_data.CurrentPage != value)
+                if (_data.StartPageTitle != value)
                 {
-                    _data.CurrentPage = value;
-                    OnPropertyChanged("CurrentPage");
+                    _data.StartPageTitle = value;
+                    OnPropertyChanged("StartPageTitle");
                 }
             }
         }
 
-        public string RequiredPage
+        public string RequiredPageTitle
         {
-            get { return _data.RequiredPage; }
+            get { return _data.RequiredPageTitle; }
             set
             {
-                if (_data.RequiredPage != value)
+                if (_data.RequiredPageTitle != value)
                 {
-                    _data.RequiredPage = value;
-                    OnPropertyChanged("RequiredPage");
+                    _data.RequiredPageTitle = value;
+                    OnPropertyChanged("RequiredPageTitle");
                 }
             }
         }
 
-        public bool SwitchPage(string newUrl)
+        public bool CanSwitchPage(string newUrl)
         {
-            if(newUrl.Contains("wikipedia.org"))
-            {
-                CurrentPage = newUrl;
-                return true;
-            }
-            return false;
+            return newUrl.Contains("wikipedia.org/wiki/");
         }
 
-        public bool CheckPage()
+        public bool CheckPage(string url)
         {
-            return CurrentPage.Replace("m.", "") == RequiredPage;
+            return Page.GetPageTitle(url) == RequiredPageTitle;
         }
 
         protected void OnPropertyChanged(string propName)
         {
             if (PropertyChanged != null)
+            {
                 PropertyChanged(this, new PropertyChangedEventArgs(propName));
+            }
         }
     }
 }

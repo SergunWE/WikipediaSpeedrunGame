@@ -11,19 +11,18 @@ namespace WikipediaSpeedrunGame
         public GamePage()
         {
             InitializeComponent();
-            Console.WriteLine("Game started");
             BindingContext = new SpeedrunModelView();
         }
 
         void WebViewNavigating(object sender, WebNavigatingEventArgs e)
         {
-            if(!((SpeedrunModelView)BindingContext).SwitchPage(e.Url))
+            if(!((SpeedrunModelView)BindingContext).CanSwitchPage(e.Url))
             {
                 e.Cancel = true;
+                return;
             }
-            if(((SpeedrunModelView)BindingContext).CheckPage())
+            if(((SpeedrunModelView)BindingContext).CheckPage(e.Url))
             {
-                Console.WriteLine("Game finished");
                 DisplayAlert("Уведомление", "Вы нашли необходимую страницу", "ОK");
             }
             

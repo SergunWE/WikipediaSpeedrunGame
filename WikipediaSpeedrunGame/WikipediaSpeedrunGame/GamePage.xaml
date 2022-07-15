@@ -4,10 +4,9 @@
              x:Class="WikipediaSpeedrunGame.GamePage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="{Binding StartPage}" FontSize="Medium" />
-            <Label Text="{Binding CurrentPage}" FontSize="Medium" />
-            <Label Text="{Binding RequiredPage}" FontSize="Medium" />
-            <WebView x:Name="webView" Source="{Binding StartPage}" Navigating="WebViewNavigating" VerticalOptions="FillAndExpand" />
+            <Label Text="{Binding StartPageTitle}" FontSize="Medium" />
+            <Label Text="{Binding RequiredPageTitle}" FontSize="Medium" />
+            <WebView Source="{Binding StartPageUrl}" Navigating="WebViewNavigating" VerticalOptions="FillAndExpand" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
