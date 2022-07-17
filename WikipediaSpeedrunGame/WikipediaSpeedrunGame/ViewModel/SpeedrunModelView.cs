@@ -1,21 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace WikipediaSpeedrunGame.ViewModel
 {
-    class SpeedrunModelView : INotifyPropertyChanged
+    class SpeedrunModelView : BaseViewModel
     {
-        private SpeedrunInfo _data;
+        public ICommand NavigatingCommand { get; set; }
+        public ICommand NavigatedCommand { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        private SpeedrunInfo _data;
+        private string _currentUrl;
 
         public SpeedrunModelView()
         {
             _data = new SpeedrunInfo();
+            _currentUrl = _data.StartPageUrl;
+            NavigatingCommand = new Command(WebViewNavigating);
+            NavigatedCommand = new Command(WebViewNavigated);
+        }
+
+        public string CurrentPageUrl
+        {
+            get { return _currentUrl; }
+            set
+            {
+                if (_currentUrl != value)
+                {
+                    _currentUrl = value;
+                    OnPropertyChanged("CurrentPageUrl");
+                }
+            }
         }
 
         public string StartPageUrl
@@ -31,22 +45,9 @@ namespace WikipediaSpeedrunGame.ViewModel
             }
         }
 
-        public string StartPageTitle
-        {
-            get { return _data.StartPageTitle; }
-            set
-            {
-                if (_data.StartPageTitle != value)
-                {
-                    _data.StartPageTitle = value;
-                    OnPropertyChanged("StartPageTitle");
-                }
-            }
-        }
-
         public string RequiredPageTitle
         {
-            get { return _data.RequiredPageTitle; }
+            get { return _data.RequiredPageTitle.Replace('_', ' '); }
             set
             {
                 if (_data.RequiredPageTitle != value)
@@ -57,22 +58,35 @@ namespace WikipediaSpeedrunGame.ViewModel
             }
         }
 
-        public bool CanSwitchPage(string newUrl)
+        public int JumpsNumber
         {
-            return newUrl.Contains("wikipedia.org/wiki/");
-        }
-
-        public bool CheckPage(string url)
-        {
-            return Page.GetPageTitle(url) == RequiredPageTitle;
-        }
-
-        protected void OnPropertyChanged(string propName)
-        {
-            if (PropertyChanged != null)
+            get { return _data.JumpsNumber; }
+            set
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(propName));
+                if (_data.JumpsNumber != value)
+                {
+                    _data.JumpsNumber = value;
+                    OnPropertyChanged("JumpsNumber");
+                }
             }
+        }
+
+        private void WebViewNavigating(object parameter)
+        {
+            WebNavigatingEventArgs eventArgs = (WebNavigatingEventArgs)parameter;
+            string newUrl = eventArgs.Url;
+            if (Page.IsWikipediaPage(newUrl))
+            {
+                if (Page.GetPageTitle(CurrentPageUrl) != Page.GetPageTitle(newUrl)) JumpsNumber++;
+                CurrentPageUrl = newUrl;
+                return;
+            }
+            eventArgs.Cancel = true;
+        }
+
+        private void WebViewNavigated(object parameter)
+        {
+
         }
     }
 }

@@ -9,19 +9,18 @@ namespace WikipediaSpeedrunGame
 {
     public class Page
     {
-
-
-        const string urlPage = "https://en.wikipedia.org/?curid=";
-        const string randomApi = "https://en.wikipedia.org/api/rest_v1/page/random/title";
+        private const string urlPageBeginning = "https://en.wikipedia.org/wiki/";
+        private const string urlRandomPage = "https://en.wikipedia.org/api/rest_v1/page/random/title";
+        private const string addressFragment = "wikipedia.org/wiki/";
 
         public static string GetPageUrl(int id)
         {
-            return urlPage + id;
+            return urlPageBeginning + id;
         }
 
         public static string GetPageUrl(string title)
         {
-            return "https://en.wikipedia.org/wiki/" + title;
+            return urlPageBeginning + title;
         }
 
         public static string GetPageTitle(string url)
@@ -29,11 +28,14 @@ namespace WikipediaSpeedrunGame
             return url.Substring(url.LastIndexOf('/') + 1);
         }
 
+        public static bool IsWikipediaPage(string url)
+        {
+            return url.Contains(addressFragment);
+        }
+
         public static string GetRandomPageTitle()
         {
-            string json = new WebClient().DownloadString("https://en.wikipedia.org/api/rest_v1/page/random/title");
-            Console.WriteLine(json);
-
+            string json = new WebClient().DownloadString(urlRandomPage);
             RequestItems<PageInfo> o = JsonConvert.DeserializeObject<RequestItems<PageInfo>>(json);
             return o.Items[0].Title;
         }
