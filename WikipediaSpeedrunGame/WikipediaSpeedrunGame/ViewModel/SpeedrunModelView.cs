@@ -3,59 +3,43 @@ using Xamarin.Forms;
 
 namespace WikipediaSpeedrunGame.ViewModel
 {
-    class SpeedrunModelView : BaseViewModel
+    public class SpeedrunModelView : BaseViewModel
     {
         public ICommand NavigatingCommand { get; set; }
         public ICommand NavigatedCommand { get; set; }
 
         private SpeedrunInfo _data;
-        private string _currentUrl;
+        private string _currentTitle;
 
-        public SpeedrunModelView()
+        public SpeedrunModelView(SpeedrunInfo info)
         {
-            _data = new SpeedrunInfo();
-            _currentUrl = _data.StartPageUrl;
+            _data = info;
+            _currentTitle = _data.StartPage.Title;
             NavigatingCommand = new Command(WebViewNavigating);
             NavigatedCommand = new Command(WebViewNavigated);
         }
 
-        public string CurrentPageUrl
+        public string CurrentPageTitle
         {
-            get { return _currentUrl; }
+            get { return _currentTitle; }
             set
             {
-                if (_currentUrl != value)
+                if (_currentTitle != value)
                 {
-                    _currentUrl = value;
-                    OnPropertyChanged("CurrentPageUrl");
+                    _currentTitle = value;
+                    OnPropertyChanged("CurrentPageTitle");
                 }
             }
         }
 
         public string StartPageUrl
         {
-            get { return _data.StartPageUrl; }
-            set
-            {
-                if (_data.StartPageUrl != value)
-                {
-                    _data.StartPageUrl = value;
-                    OnPropertyChanged("StartPageUrl");
-                }
-            }
+            get { return _data.StartPage.GetPageUrl(); }
         }
 
-        public string RequiredPageTitle
+        public string FinishPageTitle
         {
-            get { return _data.RequiredPageTitle.Replace('_', ' '); }
-            set
-            {
-                if (_data.RequiredPageTitle != value)
-                {
-                    _data.RequiredPageTitle = value;
-                    OnPropertyChanged("RequiredPageTitle");
-                }
-            }
+            get { return _data.FinishPage.Title; }
         }
 
         public int JumpsNumber
@@ -77,8 +61,9 @@ namespace WikipediaSpeedrunGame.ViewModel
             string newUrl = eventArgs.Url;
             if (Page.IsWikipediaPage(newUrl))
             {
-                if (Page.GetPageTitle(CurrentPageUrl) != Page.GetPageTitle(newUrl)) JumpsNumber++;
-                CurrentPageUrl = newUrl;
+                string newTitle = Page.GetPageTitle(newUrl);
+                if (CurrentPageTitle != newTitle) JumpsNumber++;
+                CurrentPageTitle = newTitle;
                 return;
             }
             eventArgs.Cancel = true;

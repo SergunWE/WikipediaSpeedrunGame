@@ -1,5 +1,6 @@
 ﻿using System;
 using WikipediaSpeedrunGame.ViewModel;
+using WikipediaSpeedrunGame.WikipediaPage;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -7,10 +8,13 @@ namespace WikipediaSpeedrunGame
 {
     public partial class GamePage : ContentPage
     {
-        public GamePage()
+        private SpeedrunModelView _speedrunModelView;
+ 
+        public GamePage(SpeedrunModelView modelView)
         {
             InitializeComponent();
-            BindingContext = new SpeedrunModelView();
+            _speedrunModelView = modelView;
+            BindingContext = _speedrunModelView;
         }
     }
 }

@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using WikipediaSpeedrunGame.WikipediaPage;
+using Xamarin.Forms;
 
 namespace WikipediaSpeedrunGame
 {
@@ -13,14 +15,18 @@ namespace WikipediaSpeedrunGame
         private const string urlRandomPage = "https://en.wikipedia.org/api/rest_v1/page/random/title";
         private const string addressFragment = "wikipedia.org/wiki/";
 
-        public static string GetPageUrl(int id)
-        {
-            return urlPageBeginning + id;
-        }
+        public string Title { get; private set; }
+        public PageType Type { get; private set; }
 
-        public static string GetPageUrl(string title)
+        public Page(PageType type)
+		{
+            Type = type;
+            Title = GetRandomPageTitle(Type);
+		}
+
+        public string GetPageUrl()
         {
-            return urlPageBeginning + title;
+            return urlPageBeginning + Title;
         }
 
         public static string GetPageTitle(string url)
@@ -33,11 +39,31 @@ namespace WikipediaSpeedrunGame
             return url.Contains(addressFragment);
         }
 
-        public static string GetRandomPageTitle()
+        private string GetRandomPageTitle()
         {
             string json = new WebClient().DownloadString(urlRandomPage);
             RequestItems<PageInfo> o = JsonConvert.DeserializeObject<RequestItems<PageInfo>>(json);
             return o.Items[0].Title;
         }
-    }
+
+        private string GetRandomPageTitle(PageType type)
+		{
+            string[] titles = null;
+            switch (type)
+			{
+				case PageType.Random:
+                    return GetRandomPageTitle();
+				case PageType.President:
+                    titles = (string[])Application.Current.Resources["presidentPageTitle"];
+                    break;
+				case PageType.Country:
+                    titles = (string[])Application.Current.Resources["countryPageTitle"];
+                    break;
+				case PageType.Simple:
+                    titles = (string[])Application.Current.Resources["simplePageTitle"];
+                    break;
+			}
+            return titles[new Random((int)DateTime.Now.Ticks).Next(0, titles.Length)];
+		}
+	}
 }

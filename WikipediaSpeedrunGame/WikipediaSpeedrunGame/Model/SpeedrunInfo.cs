@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using WikipediaSpeedrunGame.WikipediaPage;
 
 namespace WikipediaSpeedrunGame
 {
-    class SpeedrunInfo
+    public class SpeedrunInfo
     {
-        public string StartPageUrl { get; set; }
-        public string StartPageTitle { get; set; }
-        public string RequiredPageTitle { get; set; }
+        public Page StartPage { get; set; }
+        public Page FinishPage { get; set; }
         public int JumpsNumber { get; set; }
 
-        public SpeedrunInfo()
-        {
+        public SpeedrunInfo(PageType startType = PageType.Random, 
+            PageType finishType = PageType.Random)
+		{
             JumpsNumber = 0;
-            StartPageTitle = Page.GetRandomPageTitle();
-            RequiredPageTitle = Page.GetRandomPageTitle();
-            StartPageUrl = Page.GetPageUrl(StartPageTitle);
+            StartPage = new Page(startType);
+            FinishPage = new Page(finishType);
         }
     }
 }

@@ -6,6 +6,10 @@
 		<StackLayout>
 			<Label Text="Wikipedia Speedrun Game" HorizontalTextAlignment="Center" VerticalTextAlignment="Start"
 				  FontSize="{OnPlatform iOS=Title, Android=Title, UWP=Header}"/>
+			<Label Text="Start Page"/>
+			<Picker x:Name="startPagePicker" ItemsSource="{StaticResource Key=selectingPage}" SelectedIndex="{Binding StartPageTypeIndex}"/>
+			<Label Text="Finish Page"/>
+			<Picker x:Name="finishPagePicker" ItemsSource="{StaticResource Key=selectingPage}" SelectedIndex="{Binding FinishPageTypeIndex}"/>
 			<Button Text = "Start game" FontSize="Medium" BorderWidth="1"
 		HorizontalOptions="Center" VerticalOptions="CenterAndExpand"
 		Command="{Binding StartGameCommand}"/>

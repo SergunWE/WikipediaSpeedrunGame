@@ -2,7 +2,54 @@
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WikipediaSpeedrunGame.App">
-    <Application.Resources>
-
-    </Application.Resources>
+	<Application.Resources>
+		<x:Array Type="{x:Type x:String}" x:Key="selectingPage">
+			<x:String>Random</x:String>
+			<x:String>President</x:String>
+			<x:String>Country</x:String>
+			<x:String>Simple (training)</x:String>
+		</x:Array>
+		<x:Array Type="{x:Type x:String}" x:Key="presidentPageTitle">
+			<x:String>Ali_Bongo_Ondimba</x:String>
+			<x:String>Miloš_Zeman</x:String>
+			<x:String>Alberto_Fernández</x:String>
+			<x:String>Vahagn_Khachaturyan</x:String>
+			<x:String>Emmanuel_Macron</x:String>
+			<x:String>Ebrahim_Raisi</x:String>
+			<x:String>Kassym-Jomart_Tokayev</x:String>
+			<x:String>Andrzej_Duda</x:String>
+			<x:String>Borut_Pahor</x:String>
+			<x:String>Recep_Tayyip_Erdoğan</x:String>
+			<x:String>Volodymyr_Zelenskyy</x:String>
+			<x:String>Joe_Biden</x:String>
+			<x:String>Vladimir_Putin</x:String>
+		</x:Array>
+		<x:Array Type="{x:Type x:String}" x:Key="countryPageTitle">
+			<x:String>Afghanistan</x:String>
+			<x:String>Argentina</x:String>
+			<x:String>Australia</x:String>
+			<x:String>Belarus</x:String>
+			<x:String>Bolivia</x:String>
+			<x:String>Brazil</x:String>
+			<x:String>Canada</x:String>
+			<x:String>China</x:String>
+			<x:String>Cuba</x:String>
+			<x:String>Estonia</x:String>
+			<x:String>France</x:String>
+			<x:String>Germany</x:String>
+			<x:String>India</x:String>
+			<x:String>Italy</x:String>
+			<x:String>Kazakhstan</x:String>
+			<x:String>Portugal</x:String>
+			<x:String>Romania</x:String>
+			<x:String>Russia</x:String>
+		</x:Array>
+		<x:Array Type="{x:Type x:String}" x:Key="simplePageTitle">
+			<x:String>Main_Page</x:String>
+			<x:String>Wikipedia</x:String>
+			<x:String>Special:Statistics</x:String>
+			<x:String>Wikipedia:About</x:String>
+			<x:String>Special:SpecialPages</x:String>
+		</x:Array>
+	</Application.Resources>
 </Application>

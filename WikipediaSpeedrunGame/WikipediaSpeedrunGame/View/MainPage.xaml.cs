@@ -16,9 +16,5 @@ namespace WikipediaSpeedrunGame
             InitializeComponent();
             BindingContext = new MainModelView() { Navigation = this.Navigation };
         }
-        /*private async void OnStartGameClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushModalAsync(new GamePage());
-        }*/
     }
 }
