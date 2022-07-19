@@ -52,7 +52,8 @@ namespace WikipediaSpeedrunGame.ViewModel
 		private void StartGame()
 		{
 			Navigation.PushModalAsync(new GamePage(new SpeedrunModelView(
-				new SpeedrunInfo(_startPageType, _finishPageType))));
+				new SpeedrunInfo(_startPageType, _finishPageType)))
+			);
 		}
 	}
 }

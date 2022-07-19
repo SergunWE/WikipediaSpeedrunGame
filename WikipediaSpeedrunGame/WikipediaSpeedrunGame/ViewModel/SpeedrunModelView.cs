@@ -8,6 +8,8 @@ namespace WikipediaSpeedrunGame.ViewModel
         public ICommand NavigatingCommand { get; set; }
         public ICommand NavigatedCommand { get; set; }
 
+        public INavigation Navigation { get; set; }
+
         private SpeedrunInfo _data;
         private string _currentTitle;
 
@@ -17,6 +19,7 @@ namespace WikipediaSpeedrunGame.ViewModel
             _currentTitle = _data.StartPage.Title;
             NavigatingCommand = new Command(WebViewNavigating);
             NavigatedCommand = new Command(WebViewNavigated);
+            Navigation = App.Current.MainPage.Navigation;
         }
 
         public string CurrentPageTitle
@@ -55,6 +58,15 @@ namespace WikipediaSpeedrunGame.ViewModel
             }
         }
 
+        private async void CheckPageToWin()
+		{
+            if(_currentTitle == _data.FinishPage.Title)
+			{
+                await Application.Current.MainPage.DisplayAlert("You found the right page", $"Number of jumps: {_data.JumpsNumber}", "Save result", "Exit") ;
+                await Navigation.PopModalAsync();
+			}
+		}
+
         private void WebViewNavigating(object parameter)
         {
             WebNavigatingEventArgs eventArgs = (WebNavigatingEventArgs)parameter;
@@ -64,6 +76,7 @@ namespace WikipediaSpeedrunGame.ViewModel
                 string newTitle = Page.GetPageTitle(newUrl);
                 if (CurrentPageTitle != newTitle) JumpsNumber++;
                 CurrentPageTitle = newTitle;
+                CheckPageToWin();
                 return;
             }
             eventArgs.Cancel = true;
@@ -73,5 +86,7 @@ namespace WikipediaSpeedrunGame.ViewModel
         {
 
         }
+
+
     }
 }
