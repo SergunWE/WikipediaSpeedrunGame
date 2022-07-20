@@ -62,7 +62,11 @@ namespace WikipediaSpeedrunGame.ViewModel
 		{
             if(_currentTitle == _data.FinishPage.Title)
 			{
-                await Application.Current.MainPage.DisplayAlert("You found the right page", $"Number of jumps: {_data.JumpsNumber}", "Save result", "Exit") ;
+                bool result = await Application.Current.MainPage.DisplayAlert("You found the right page", $"Number of jumps: {_data.JumpsNumber}", "Save result", "Exit");
+                if(result)
+				{
+                    SpeedrunJsonSaver.AddToList(_data);
+				}
                 await Navigation.PopModalAsync();
 			}
 		}

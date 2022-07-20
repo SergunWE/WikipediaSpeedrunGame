@@ -17,12 +17,7 @@ namespace WikipediaSpeedrunGame.ViewModel
 			ItemSelectedCommand = new Command(ItemSelected);
 			ItemTappedCommand = new Command(ItemTapped);
 
-			SavedSpeedruns = new List<SpeedrunInfo>
-			{
-				new SpeedrunInfo(new Page(WikipediaPage.PageType.Simple), new Page(WikipediaPage.PageType.Simple), 20),
-				new SpeedrunInfo(new Page(WikipediaPage.PageType.Country), new Page(WikipediaPage.PageType.Simple), 10),
-				new SpeedrunInfo(new Page(WikipediaPage.PageType.Simple), new Page(WikipediaPage.PageType.Random), 40),
-			};
+			SavedSpeedruns = SpeedrunJsonSaver.SavedList;
 		}
 
 		private void ItemSelected(object parameter)
