@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:local="clr-namespace:WikipediaSpeedrunGame.Custom;assembly=WikipediaSpeedrunGame"
+             x:Class="WikipediaSpeedrunGame.View.ResultPage" Title="Saved speedruns">
+	<ContentPage.Content>
+		<StackLayout>
+			<local:CommandListView x:Name="speedrunsList"
+              HasUnevenRows="True"
+              ItemsSource="{Binding SavedSpeedruns}"
+			ItemTappedCommand="{Binding ItemTappedCommand}"
+              >
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<ViewCell.View>
+								<StackLayout>
+									<Label Text="{Binding StartPage.Title, StringFormat='Start Page: {0}'}"/>
+									<Label Text="{Binding FinishPage.Title, StringFormat='Finish Page: {0}'}" />
+									<Label Text="{Binding JumpsNumber, StringFormat='Jumps Number: {0}'}" />
+								</StackLayout>
+							</ViewCell.View>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</local:CommandListView>
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>

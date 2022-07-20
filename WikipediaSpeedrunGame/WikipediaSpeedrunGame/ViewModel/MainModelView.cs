@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Windows.Input;
+using WikipediaSpeedrunGame.View;
 using WikipediaSpeedrunGame.WikipediaPage;
 using Xamarin.Forms;
 
@@ -13,12 +14,14 @@ namespace WikipediaSpeedrunGame.ViewModel
 		private PageType _startPageType;
 		private PageType _finishPageType;
 		public ICommand StartGameCommand { get; set; }
+		public ICommand ShowSavedSpeedrunsCommand { get; set; }
 
 		public INavigation Navigation { get; set; }
 
 		public MainModelView()
 		{
 			StartGameCommand = new Command(StartGame);
+			ShowSavedSpeedrunsCommand = new Command(ShowSavedSpeedruns);
 			_startPageType = PageType.Random;
 			_finishPageType = PageType.Random;
 		}
@@ -52,8 +55,12 @@ namespace WikipediaSpeedrunGame.ViewModel
 		private void StartGame()
 		{
 			Navigation.PushModalAsync(new GamePage(new SpeedrunModelView(
-				new SpeedrunInfo(_startPageType, _finishPageType)))
-			);
+				new SpeedrunInfo(new Page(_startPageType), new Page(_finishPageType)))));
+		}
+
+		private void ShowSavedSpeedruns()
+		{
+			Navigation.PushAsync(new ResultPage());
 		}
 	}
 }

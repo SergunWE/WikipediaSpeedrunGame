@@ -3,11 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:WikipediaSpeedrunGame.Custom;assembly=WikipediaSpeedrunGame"
              x:Class="WikipediaSpeedrunGame.GamePage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="{Binding JumpsNumber, StringFormat='Number of jumps: {0}'}"  FontSize="Default" />
-            <Label Text="{Binding FinishPageTitle, StringFormat='You need to find: {0}'}" FontSize="Default" />
-            <local:CommandWebView Source="{Binding StartPageUrl}" VerticalOptions="FillAndExpand" NavigatingCommand="{Binding NavigatingCommand}"/>
-        </StackLayout>
-    </ContentPage.Content>
+	<ContentPage.Content>
+		<StackLayout>
+			<Label Text="{Binding JumpsNumber, StringFormat='Number of jumps: {0}'}"  FontSize="Default" />
+			<Label Text="{Binding FinishPageTitle, StringFormat='You need to find: {0}'}" FontSize="Default" />
+			<local:CommandWebView Source="{Binding StartPageUrl}" VerticalOptions="FillAndExpand" 
+			NavigatingCommand="{Binding NavigatingCommand}"/>
+		</StackLayout>
+	</ContentPage.Content>
 </ContentPage>
