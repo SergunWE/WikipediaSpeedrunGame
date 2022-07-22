@@ -4,20 +4,19 @@
 			 xmlns:local="clr-namespace:WikipediaSpeedrunGame.Custom;assembly=WikipediaSpeedrunGame"
              x:Class="WikipediaSpeedrunGame.View.ResultPage" Title="Saved speedruns">
 	<ContentPage.Content>
-		<StackLayout>
-			<local:CommandListView x:Name="speedrunsList"
+		<StackLayout Padding="20,20,20,0">
+			<local:CommandListView
               HasUnevenRows="True"
               ItemsSource="{Binding SavedSpeedruns}"
-			ItemTappedCommand="{Binding ItemTappedCommand}"
-              >
+			ItemTappedCommand="{Binding ItemTappedCommand}">
 				<ListView.ItemTemplate>
 					<DataTemplate>
-						<ViewCell>
+						<ViewCell >
 							<ViewCell.View>
-								<StackLayout>
+								<StackLayout VerticalOptions="Center" Spacing="1">
 									<Label Text="{Binding StartPage.Title, StringFormat='Start Page: {0}'}"/>
 									<Label Text="{Binding FinishPage.Title, StringFormat='Finish Page: {0}'}" />
-									<Label Text="{Binding JumpsNumber, StringFormat='Jumps Number: {0}'}" />
+									<Label Text="{Binding JumpsNumber, StringFormat='Jumps Number: {0}'}" Padding="0,0,0,15" />
 								</StackLayout>
 							</ViewCell.View>
 						</ViewCell>
