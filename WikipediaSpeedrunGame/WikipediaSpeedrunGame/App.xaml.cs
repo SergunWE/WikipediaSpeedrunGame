@@ -19,6 +19,7 @@ namespace WikipediaSpeedrunGame
 
         protected override void OnSleep()
         {
+            SavedSpeedruns.SaveList();
         }
 
         protected override void OnResume()

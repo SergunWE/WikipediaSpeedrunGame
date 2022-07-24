@@ -18,17 +18,22 @@ namespace WikipediaSpeedrunGame
         public string Title { get; private set; }
         public PageType Type { get; private set; }
 
-        public Page(PageType type, string title = null)
+        public Page(PageType type)
+        {
+            Type = type;
+            Title = GetRandomPageTitle(Type);
+        }
+
+        [JsonConstructor]
+        public Page(PageType type, string title)
 		{
             Type = type;
             if(string.IsNullOrEmpty(title))
 			{
-                Title = GetRandomPageTitle(Type);
-                return;
+                throw new ArgumentException(title);
             }
             Title = title;
-            
-		}
+        }
 
         public string GetPageUrl()
         {

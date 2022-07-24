@@ -65,7 +65,7 @@ namespace WikipediaSpeedrunGame.ViewModel
                 bool result = await Application.Current.MainPage.DisplayAlert("You found the right page", $"Number of jumps: {_data.JumpsNumber}", "Save result", "Exit");
                 if(result)
 				{
-                    SpeedrunJsonSaver.AddToList(_data);
+                    SavedSpeedruns.SavedList.Add(_data);
 				}
                 await Navigation.PopModalAsync();
 			}

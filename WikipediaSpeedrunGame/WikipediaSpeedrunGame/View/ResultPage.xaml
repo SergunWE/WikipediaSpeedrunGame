@@ -11,9 +11,10 @@
 			ItemTappedCommand="{Binding ItemTappedCommand}">
 				<ListView.ItemTemplate>
 					<DataTemplate>
-						<ViewCell >
+						<ViewCell>
 							<ViewCell.View>
 								<StackLayout VerticalOptions="Center" Spacing="1">
+									<!-- Почему то это вызывает xaml binding failures, но отображение работает -->
 									<Label Text="{Binding StartPage.Title, StringFormat='Start Page: {0}'}"/>
 									<Label Text="{Binding FinishPage.Title, StringFormat='Finish Page: {0}'}" />
 									<Label Text="{Binding JumpsNumber, StringFormat='Jumps Number: {0}'}" Padding="0,0,0,15" />
