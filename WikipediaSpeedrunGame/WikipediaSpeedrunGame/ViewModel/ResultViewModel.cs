@@ -7,13 +7,13 @@ using Xamarin.Forms;
 
 namespace WikipediaSpeedrunGame.ViewModel
 {
-	class SpeedrunsListViewModel : BaseViewModel
+	class ResultViewModel : BaseViewModel
 	{
 		public ICommand ItemSelectedCommand { get; set; }
 		public ICommand ItemTappedCommand { get; set; }
 		public ObservableCollection<SpeedrunInfo> SavedSpeedruns { get; set; }
 
-		public SpeedrunsListViewModel()
+		public ResultViewModel()
 		{
 			ItemSelectedCommand = new Command(ItemSelected);
 			ItemTappedCommand = new Command(ItemTapped);
@@ -34,7 +34,7 @@ namespace WikipediaSpeedrunGame.ViewModel
 				Page finishPage = selectedSpeedrun.FinishPage;
 				bool result = await Application.Current.MainPage.DisplayAlert("Speedrun info",
 					$"{startPage.Title} - {startPage.Type}\n{finishPage.Title} - {finishPage.Type}\n" +
-					$"Jumps Number: {selectedSpeedrun.JumpsNumber}", "OK", "Delete");
+					$"Jumps Number: {selectedSpeedrun.JumpsNumber}\nTime: {selectedSpeedrun.FinishTime-selectedSpeedrun.StartTime}", "OK", "Delete");
 				if(!result)
 				{
 					WikipediaSpeedrunGame.SavedSpeedruns.SavedList.Remove(selectedSpeedrun);

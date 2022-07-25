@@ -14,7 +14,7 @@ namespace WikipediaSpeedrunGame
         public MainPage()
         {
             InitializeComponent();
-            BindingContext = new MainModelView() { Navigation = this.Navigation };
+            BindingContext = new MainViewModel() { Navigation = this.Navigation };
         }
     }
 }

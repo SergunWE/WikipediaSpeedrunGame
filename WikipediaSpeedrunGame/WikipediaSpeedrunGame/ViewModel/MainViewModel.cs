@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace WikipediaSpeedrunGame.ViewModel
 {
-	public class MainModelView : BaseViewModel
+	public class MainViewModel : BaseViewModel
 	{
 		private PageType _startPageType;
 		private PageType _finishPageType;
@@ -18,7 +18,7 @@ namespace WikipediaSpeedrunGame.ViewModel
 
 		public INavigation Navigation { get; set; }
 
-		public MainModelView()
+		public MainViewModel()
 		{
 			StartGameCommand = new Command(StartGame);
 			ShowSavedSpeedrunsCommand = new Command(ShowSavedSpeedruns);
@@ -54,7 +54,7 @@ namespace WikipediaSpeedrunGame.ViewModel
 
 		private void StartGame()
 		{
-			Navigation.PushModalAsync(new GamePage(new SpeedrunModelView(
+			Navigation.PushModalAsync(new GamePage(new GameViewModel(
 				new SpeedrunInfo(new Page(_startPageType), new Page(_finishPageType)))));
 		}
 

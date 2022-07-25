@@ -15,7 +15,7 @@ namespace WikipediaSpeedrunGame.View
 		public ResultPage()
 		{
 			InitializeComponent();
-			BindingContext = new SpeedrunsListViewModel();
+			BindingContext = new ResultViewModel();
 		}
 	}
 }

@@ -8,9 +8,9 @@ namespace WikipediaSpeedrunGame
 {
     public partial class GamePage : ContentPage
     {
-        private SpeedrunModelView _speedrunModelView;
+        private GameViewModel _speedrunModelView;
  
-        public GamePage(SpeedrunModelView modelView)
+        public GamePage(GameViewModel modelView)
         {
             InitializeComponent();
             _speedrunModelView = modelView;
