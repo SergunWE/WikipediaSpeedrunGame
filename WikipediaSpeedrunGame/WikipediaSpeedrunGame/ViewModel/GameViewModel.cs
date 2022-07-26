@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -13,14 +14,21 @@ namespace WikipediaSpeedrunGame.ViewModel
 
         private SpeedrunInfo _model;
         private string _currentTitle;
+        private int _stopWatchMinutes;
+        private int _stopWatchSeconds;
+
+        private bool _watchStopWorking;
 
         public GameViewModel(SpeedrunInfo info)
         {
             _model = info;
             _currentTitle = _model.StartPage.Title;
+            _stopWatchMinutes = 0;
+            _stopWatchSeconds = 0;
             NavigatingCommand = new Command(WebViewNavigating);
             NavigatedCommand = new Command(WebViewNavigated);
             Navigation = Application.Current.MainPage.Navigation;
+            DisplayTime();
         }
 
         public string StartPageUrl
@@ -46,20 +54,50 @@ namespace WikipediaSpeedrunGame.ViewModel
             }
         }
 
+        public int StopWatchMinutes
+        {
+            get { return _stopWatchMinutes; }
+            set
+            {
+                if (_stopWatchMinutes != value)
+                {
+                    _stopWatchMinutes = value;
+                    OnPropertyChanged("StopWatchMinutes");
+                }
+            }
+        }
+
+        public int StopWatchSeconds
+        {
+            get { return _stopWatchSeconds; }
+            set
+            {
+                if (_stopWatchSeconds != value)
+                {
+                    _stopWatchSeconds = value;
+                    OnPropertyChanged("StopWatchSeconds");
+                }
+            }
+        }
+
         private async void CheckPageToWin()
-		{
-            if(_currentTitle == _model.FinishPage.Title)
-			{
+        {
+            if (_currentTitle == _model.FinishPage.Title)
+            {
                 _model.FinishTime = DateTime.Now;
+                _watchStopWorking = false;
+                TimeSpan time = _model.FinishTime -_model.StartTime;
+                StopWatchMinutes = (int)time.TotalMinutes;
+                StopWatchSeconds = time.Seconds;
                 bool result = await Application.Current.MainPage.DisplayAlert("You found the right page", $"Number of jumps: " +
                     $"{_model.JumpsNumber}\nTime: {_model.FinishTime - _model.StartTime}", "Save result", "Exit");
-                if(result)
-				{
+                if (result)
+                {
                     SavedSpeedruns.SavedList.Add(_model);
-				}
+                }
                 await Navigation.PopModalAsync();
-			}
-		}
+            }
+        }
 
         private void WebViewNavigating(object parameter)
         {
@@ -81,6 +119,19 @@ namespace WikipediaSpeedrunGame.ViewModel
 
         }
 
+        private async void DisplayTime()
+        {
+            _watchStopWorking = true;
+            TimeSpan time;
+            while (_watchStopWorking)
+            {
+                time = CurrenntTimeSpeedrun();
+                StopWatchMinutes = (int)time.TotalMinutes;
+                StopWatchSeconds = time.Seconds;
+                await Task.Delay(1000);
+            }
+        }
 
+        private TimeSpan CurrenntTimeSpeedrun() => DateTime.Now - _model.StartTime;
     }
 }
