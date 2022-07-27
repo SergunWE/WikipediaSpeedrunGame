@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:local="clr-namespace:WikipediaSpeedrunGame.Custom;assembly=WikipediaSpeedrunGame"
-             x:Class="WikipediaSpeedrunGame.View.ResultPage" Title="Saved speedruns">
+             x:Class="WikipediaSpeedrunGame.View.ResultPage" Title="{local:Translate ResultsTitle}">
 	<ContentPage.Content>
 		<StackLayout Padding="20,20,20,0">
 			<local:CommandListView
@@ -15,9 +15,36 @@
 							<ViewCell.View>
 								<StackLayout VerticalOptions="Center" Spacing="1">
 									<!-- Почему то это вызывает xaml binding failures, но отображение работает -->
-									<Label Text="{Binding StartPage.Title, StringFormat='Start Page: {0}'}"/>
-									<Label Text="{Binding FinishPage.Title, StringFormat='Finish Page: {0}'}" />
-									<Label Text="{Binding JumpsNumber, StringFormat='Jumps Number: {0}'}" Padding="0,0,0,15" />
+									
+                                    <Label>
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{local:Translate FirstPicker}"/>
+                                                <Span Text=": "/>
+                                                <Span Text="{Binding StartPage.Title}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                   
+                                    <Label>
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{local:Translate SecondPicker}"/>
+                                                <Span Text=": "/>
+                                                <Span Text="{Binding FinishPage.Title}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+									
+                                    <Label>
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{local:Translate JumpsNumber}"/>
+                                                <Span Text=": "/>
+                                                <Span Text="{Binding JumpsNumber}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
 								</StackLayout>
 							</ViewCell.View>
 						</ViewCell>

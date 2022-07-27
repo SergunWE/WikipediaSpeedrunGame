@@ -6,13 +6,30 @@
 	<ContentPage.Content>
 		<StackLayout>
 			<StackLayout Padding="15, 0, 0, 0">
-			<Label Text="{Binding JumpsNumber, StringFormat='Number of jumps: {0}'}"  FontSize="Default" />
-			<Label Text="{Binding FinishPageTitle, StringFormat='You need to find: {0}'}" FontSize="Default"/>
-			<Label Grid.Column="1">
+                <Label>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{local:Translate JumpsNumber}"/>
+                            <Span Text=": "/>
+                            <Span Text="{Binding JumpsNumber}"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{local:Translate YouFind}"/>
+                            <Span Text=": "/>
+                            <Span Text="{Binding FinishPageTitle}"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label>
 				<Label.FormattedText>
 					<FormattedString>
-						<Span Text="Time: "/>
-						<Span Text="{Binding StopWatchMinutes}"/>
+						<Span Text="{local:Translate StopWatch}"/>
+                       <Span Text=": "/>
+                        <Span Text="{Binding StopWatchMinutes}"/>
 						<Span Text=":"/>
 						<Span Text="{Binding StopWatchSeconds}"/>
 					</FormattedString>

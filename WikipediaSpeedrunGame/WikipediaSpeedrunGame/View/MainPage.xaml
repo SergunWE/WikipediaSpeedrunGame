@@ -1,19 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 x:Class="WikipediaSpeedrunGame.MainPage" Title="Wikipedia Speedrun Game">
-	<ContentPage.Content>
-		<StackLayout Padding="20,20,20,0" Spacing="10">
-			<Label Text="Start Page"/>
-			<Picker x:Name="startPagePicker" ItemsSource="{StaticResource Key=selectingPage}"
-					SelectedIndex="{Binding StartPageTypeIndex}"/>
-			<Label Text="Finish Page"/>
-			<Picker x:Name="finishPagePicker" ItemsSource="{StaticResource Key=selectingPage}"
+             xmlns:local="clr-namespace:WikipediaSpeedrunGame.Custom;assembly=WikipediaSpeedrunGame"
+			 x:Class="WikipediaSpeedrunGame.MainPage" Title="{local:Translate MainTitle}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Button" x:Key="mainPageButton">
+                <Setter Property="FontSize" Value="Medium"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="BorderWidth" Value="10"/>
+                <Setter Property="VerticalOptions" Value="End"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Padding="20,20,20,0" Spacing="10">
+            <Label Text="{local:Translate StartPage}"/>
+            <Picker x:Name="startPagePicker" ItemsSource="{StaticResource Key=selectingPage}"
+					SelectedIndex="{Binding StartPageTypeIndex}">
+            </Picker>
+            <Label Text="{local:Translate FinishPage}"/>
+            <Picker x:Name="finishPagePicker" ItemsSource="{StaticResource Key=selectingPage}"
 					SelectedIndex="{Binding FinishPageTypeIndex}"/>
-			<Button Text = "Start game" FontSize="Medium" BorderWidth="10" HorizontalOptions="Center" 
-					VerticalOptions="EndAndExpand" Command="{Binding StartGameCommand}"/>
-			<Button Text = "Show saved speedruns" FontSize="Medium" BorderWidth="10" HorizontalOptions="Center" 
-					VerticalOptions="End" Command="{Binding ShowSavedSpeedrunsCommand}" Margin="0,0,0,25"/>
-		</StackLayout>
-	</ContentPage.Content>
+            <Button Text = "{local:Translate StartButton}" Style="{StaticResource mainPageButton}" VerticalOptions="EndAndExpand" Command="{Binding StartGameCommand}"/>
+            <Button Text = "{local:Translate ResultsButton}" Style="{StaticResource mainPageButton}" Command="{Binding ShowSavedSpeedrunsCommand}" Margin="0,0,0,25"/>
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>
